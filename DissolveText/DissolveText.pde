@@ -8,7 +8,7 @@ void setup() {
   // draw text
   fill(textColor);
   textSize(128);
-  text("Valerija", 180, 200);
+  text("I Love You", 100, 200);
   // initialize points array with the right colors
   loadPixels();
   for (int x = 0; x < width; x++) {
@@ -23,6 +23,9 @@ void setup() {
 
 void draw() {
   background(51);
+  //textSize(16);
+  //fill(255);
+  //text(int(frameRate), 0, 30);
   
   for (Particle p : particles) {
     p.update();

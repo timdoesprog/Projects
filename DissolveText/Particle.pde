@@ -22,7 +22,7 @@ class Particle {
     }
     else {
       int choice = int(random(100));
-      if (choice <= 5) {
+      if (choice <= 2) {
         active = true;
       }
     }
