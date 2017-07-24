@@ -10,12 +10,13 @@ class Vehicle {
     location = new PVector(x, y);
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, -2);
-    maxSpeed = 4;
-    maxForce = 0.1;
+    maxSpeed = random(4, 8);
+    maxForce = random(0.1, 0.3);
     r = 6;
   }
   
   void display() {
+    // angle for rotation
     float theta = velocity.heading() + PI/2;
     fill(255);
     noStroke();
@@ -44,6 +45,7 @@ class Vehicle {
   void seek(PVector target) {
     PVector desired = PVector.sub(target, location);
     desired.setMag(maxSpeed);
+    // desired - velocity
     PVector force = PVector.sub(desired, velocity);
     force.limit(maxForce);
     applyForce(force);
@@ -63,6 +65,7 @@ class Vehicle {
       desired.setMag(maxSpeed);
     }
     
+    // desired - velocity
     PVector force = PVector.sub(desired, velocity);
     force.limit(maxForce);
     applyForce(force);

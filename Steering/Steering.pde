@@ -3,7 +3,7 @@ Vehicle[] vehicles;
 
 void setup() {
   size(800, 800);
-  vehicles = new Vehicle[1];
+  vehicles = new Vehicle[10];
   for (int i = 0; i < vehicles.length; i++) {
     vehicles[i] = new Vehicle(random(width), random(height));
   }
