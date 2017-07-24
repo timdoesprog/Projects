@@ -10,7 +10,7 @@ class Vehicle {
     location = new PVector(x, y);
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, -2);
-    maxSpeed = 8;
+    maxSpeed = 4;
     maxForce = 0.1;
     r = 6;
   }
@@ -44,6 +44,25 @@ class Vehicle {
   void seek(PVector target) {
     PVector desired = PVector.sub(target, location);
     desired.setMag(maxSpeed);
+    PVector force = PVector.sub(desired, velocity);
+    force.limit(maxForce);
+    applyForce(force);
+  }
+  
+  // Method for arriving at a target
+  // basically Steering with slowing down when near the target
+  void arrive(PVector target) {
+    PVector desired = PVector.sub(target, location);
+    float distance = desired.mag();
+    
+    if (distance < 100) {
+      float speed = map(distance, 0, 100, 0, maxSpeed);
+      desired.setMag(speed);
+    }
+    else {
+      desired.setMag(maxSpeed);
+    }
+    
     PVector force = PVector.sub(desired, velocity);
     force.limit(maxForce);
     applyForce(force);
