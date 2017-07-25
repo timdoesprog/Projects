@@ -44,4 +44,5 @@ void draw() {
       p.display();
     }
   }
+  println(frameRate);
 }

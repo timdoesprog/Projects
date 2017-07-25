@@ -6,7 +6,7 @@ class Particle {
   
   Particle(float x, float y, float l_) {
     location = new PVector(x, y);
-    velocity = PVector.random2D().setMag(1.5);
+    velocity = PVector.random2D().setMag(random(1, 2));
     l = l_;
   }
   
