@@ -10,6 +10,9 @@ void draw() {
   background(51);
   for (Vehicle v : vehicles) {
     v.update();
+    v.align();
+    v.seperate();
+    v.cohesion();
     v.display();
   }
 }

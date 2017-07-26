@@ -59,4 +59,83 @@ class Vehicle {
       location.y = height - factor;
     }
   }
+  
+  void seek(PVector target) {
+    PVector desired = PVector.sub(target, location);
+    desired.setMag(maxSpeed);
+    // desired - velocity
+    PVector force = PVector.sub(desired, velocity);
+    force.limit(maxForce);
+    applyForce(force);
+  }
+  
+  void align() {
+    PVector sum = new PVector(0, 0);
+    int count = 0;
+    
+    for (Vehicle other : vehicles) {
+      float distance = PVector.dist(location, other.location);
+      // add vector to the sum if they are in a certain range
+      if (distance > 0 && distance < 20) {
+        sum.add(other.velocity);
+        count++;
+      }
+    }
+    
+    if (count > 0) {
+      // sum = desired velocity
+      sum.div(count);
+      sum.setMag(maxSpeed);
+      PVector steer = PVector.sub(sum, velocity);
+      steer.limit(maxForce);
+      applyForce(steer);
+    }
+  }
+  
+  void seperate() {
+    float desiredSeperation = r*6;
+    PVector sum = new PVector(0, 0);
+    int count = 0;
+    
+    for (Vehicle other : vehicles) {
+      float distance = PVector.dist(location, other.location);
+      if (distance > 0 && distance < desiredSeperation) {
+        // Vector pointing away from neighbour
+        PVector difference = PVector.sub(location, other.location);
+        difference.normalize();
+        // weight the vector by its distance to the vehicle
+        difference.div(distance);
+        sum.add(difference);
+        count++;
+      }
+    }
+    
+    if (count > 0) {
+      // sum = desired velocity
+      sum.div(count);
+      sum.setMag(maxSpeed);
+      PVector steer = PVector.sub(sum, velocity);
+      steer.limit(maxForce);
+      applyForce(steer);
+    }
+  }
+  
+  void cohesion() {
+    float neighbourDistance = 50;
+    PVector sum = new PVector(0, 0);
+    int count = 0;
+    
+    for (Vehicle other : vehicles) {
+      float distance = PVector.dist(location, other.location);
+      if (distance > 0 && distance < neighbourDistance) {
+        sum.add(other.location);
+        count++;
+      }
+    }
+    
+    if (count > 0) {
+      sum.div(count);
+      seek(sum);
+    }
+  }
 }
