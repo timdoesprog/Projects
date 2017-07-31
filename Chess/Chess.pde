@@ -22,12 +22,21 @@ void setup() {
     moves,                    // moves
     new PVector(4, 6),        // position
     "Peasant",                // name
-    1                         // isWhite
+    -1                         // isWhite
   );
   
   // update the board whenever a new piece gets created
   board.board[int(piece1.position.x)][int(piece1.position.y)] = piece1;
   board.board[int(piece2.position.x)][int(piece2.position.y)] = piece2;
+  
+  // after the board is set, generate all the possible moves for the pieces
+  for (int i = 0; i < 8; i++) {
+    for (int j = 0; j < 8; j++) {
+      if (board.board[i][j] != null) {
+        board.board[i][j].generateValidMoves();
+      }
+    }
+  }
 }
 
 void draw() {

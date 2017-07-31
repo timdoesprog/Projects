@@ -17,7 +17,6 @@ class ChessPiece {
     name = n;
     isWhite = w;
     
-    generateValidMoves();
   }
   
   void display(Board board) {
