@@ -13,6 +13,6 @@ void setup() {
   graph.makeConnection("Vale", "Isabelle");
   graph.makeConnection("Samuel", "Isabelle");
   graph.makeConnection("Maxi", "Samuel");
-  graph.printGraph();
-  // println(graph.findPath("Tim", "Isabelle"));
+  // graph.printGraph();
+  println(graph.findPath("Tim", "Isabelle"));
 }

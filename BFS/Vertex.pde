@@ -1,18 +1,18 @@
 class Vertex {
   String data;
-  HashMap<String, Vertex> edges;
+  ArrayList<Vertex> edges;
   boolean searched;
   Vertex parent;
   
   
   Vertex(String d) {
     data = d;
-    edges = new HashMap<String, Vertex>();
+    edges = new ArrayList<Vertex>();
     searched = false;
     parent = null;
   }
   
   void connect(Vertex other) {
-    edges.put(other.data, other);
+    edges.add(other);
   }
 }

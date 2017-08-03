@@ -21,6 +21,12 @@ class Queue {
   
   Node dequeue() {
     if (front != null) {
+      if (front == back) {
+        Node n = front;
+        front = null;
+        back = null;
+        return n;
+      }
       Node n = front;
       front = front.next;
       return n;

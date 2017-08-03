@@ -38,17 +38,25 @@ class Graph {
   
   boolean findPath(String start, String target) {
     Queue q = new Queue();
+    // set of all the seen nodes
+    HashMap<String, Vertex> seen = new HashMap<String, Vertex>();
     // add start to the q
     q.enqueue(graph.get(start));
     
     while (!q.isEmpty()) {
       Vertex current = q.dequeue().data;
+      seen.put(current.data, current);
+      println("Current vertex: ", current.data);
       if (current.data == target) {
         return true;
       }
-      for (Map.Entry entry : graph.entrySet()) {
-        Vertex v = (Vertex) entry.getValue();
-        q.enqueue(v);
+      for (int i = 0; i < current.edges.size(); i++) {
+        Vertex v = current.edges.get(i);
+        if (!seen.containsKey(v.data)) {
+          q.enqueue(v);
+          seen.put(v.data, v);
+          println("Enqueue: ", v.data);
+        }
       }
     }
     return false;
